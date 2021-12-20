@@ -6,7 +6,7 @@
         <Cell
             v-for="item in coordinates"
             :id="item.id"
-            :type="item.type"
+            :snake="snake"
             :key="item.id"
         />
     </div>
@@ -14,7 +14,7 @@
 
 <script>
 import Cell from "./Cell.vue";
-import { createCoordinates } from "../snake";
+import { Snake } from "@/common/snake";
 
 const CELL_SIDE = 20;
 
@@ -38,20 +38,31 @@ export default {
             width: 20,
             height: 20,
             coordinates: [],
+            snake: null,
         };
     },
     created() {
         this.width = CELL_SIDE * this.x;
         this.height = CELL_SIDE * this.y;
+    },
+    mounted() {
+        let snake = new Snake(this.x, this.y);
+        this.snake = snake;
+        document.onkeydown = (event) => {
+            snake.keydown(event);
+        };
+        this.coordinates = snake.createCoordinates(this.x, this.y);
 
-        this.coordinates = createCoordinates(this.x, this.y);
+        setTimeout(() => {
+            this.snake.start();
+        }, 1000);
     },
 };
 </script>
 
 <style>
 .main-box {
-    margin: 100px auto;
+    margin: 100px auto 0;
     border: 1px solid #666;
 }
 </style>

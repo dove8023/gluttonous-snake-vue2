@@ -8,11 +8,31 @@
 export default {
     name: "Cell",
     props: {
-        type: {
-            required: false,
+        id: {
+            required: true,
             type: String,
-            default: "blank",
         },
+        snake: {
+            required: true,
+            type: Object,
+        },
+    },
+    data() {
+        return {
+            type: "blank",
+        };
+    },
+    mounted() {
+        this.snake.on("update", (list) => {
+            for (let item of list) {
+                if (item.id == this.id) {
+                    this.type = item.type.toLowerCase();
+                    return;
+                }
+            }
+
+            this.type = "blank";
+        });
     },
 };
 </script>
@@ -23,8 +43,8 @@ export default {
     width: 20px;
     height: 20px;
     box-sizing: border-box;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,4 +1,4 @@
-import { Snake } from "@/snake";
+import { Snake } from "@/common/snake";
 
 
 describe("Test Snake Class", () => {
