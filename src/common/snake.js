@@ -2,7 +2,7 @@
  * @Author: xisen.he 
  * @Date: 2021-12-20 11:16:10 
  * @Last Modified by: xisen.he
- * @Last Modified time: 2021-12-20 15:38:49
+ * @Last Modified time: 2021-12-20 16:50:26
  */
 
 import Event from "./event"
@@ -29,6 +29,8 @@ export class Snake extends Event {
 
         // setInterval
         this.timer = null;
+
+        this.createSnake();
     }
 
     /**
@@ -118,7 +120,6 @@ export class Snake extends Event {
 
     start() {
 
-        this.createSnake();
         this.timer = setInterval(() => {
             this.move();
         }, 100);
